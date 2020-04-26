@@ -116,8 +116,14 @@ export class Graph {
         return false;
     }
 
+
     hasParallelEdges(): boolean {
-        // TODO - find a more efficient way to do this.
+
+        /*
+         * TODO: 
+         *  Find a more efficient way to check every 
+         *  pair of edges to see if they are parallel.
+         */
 
         const edgesToCheck = this.edges;
 
