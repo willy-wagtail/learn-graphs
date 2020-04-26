@@ -10,23 +10,11 @@ import { IncidenceMap } from "./incidence-map";
 export class Graph {
 
     constructor(
-        private _vertices: Vertex[] = [],
-        private _edges: Edge[] = [],
-        private _incidenceMap: IncidenceMap
+        public readonly vertices: Vertex[] = [],
+        public readonly edges: Edge[] = [],
+        public readonly incidenceMap: IncidenceMap
     ) {
         this.checkIncidenceMap();
-    }
-
-    vertices(): Vertex[] {
-        return this._vertices;
-    }
-
-    edges(): Edge[] {
-        return this._edges;
-    }
-
-    incidenceMap(): IncidenceMap {
-        return this._incidenceMap;
     }
 
     /**
@@ -40,12 +28,12 @@ export class Graph {
         first: Vertex,
         second: Vertex
     ): boolean {
-        if (this._edges === []) {
+        if (this.edges === []) {
             return false;
         }
 
-        for (const edge of this._edges) {
-            const [end1, end2] = this._incidenceMap(edge);
+        for (const edge of this.edges) {
+            const [end1, end2] = this.incidenceMap(edge);
 
             const isConnectingEdge: boolean =
                 (first.equalTo(end1) && second.equalTo(end2))
@@ -80,7 +68,7 @@ export class Graph {
     allNeighbours(check: Vertex): Set<Vertex> {
         const neighbours: Set<Vertex> = new Set();
 
-        for (const vertex of this._vertices) {
+        for (const vertex of this.vertices) {
             if (this.neighbours(check, vertex)) {
                 neighbours.add(vertex);
             }
@@ -119,8 +107,8 @@ export class Graph {
     }
 
     hasLoops(): boolean {
-        for (const edge of this._edges) {
-            if (edge.loop(this._incidenceMap)) {
+        for (const edge of this.edges) {
+            if (edge.loop(this.incidenceMap)) {
                 return true;
             }
         }
@@ -130,13 +118,13 @@ export class Graph {
 
     hasParallelEdges(): boolean {
         // TODO: Can we make this more efficient?
-        const edgesToCheck = this._edges.splice(0);
+        const edgesToCheck = this.edges.splice(0);
 
-        for (const edge1 of this._edges) {
+        for (const edge1 of this.edges) {
             edgesToCheck.shift();
 
             for (const edge2 of edgesToCheck) {
-                if (edge1.parallel(edge2, this._incidenceMap)) {
+                if (edge1.parallel(edge2, this.incidenceMap)) {
                     return true;
                 }
             }
