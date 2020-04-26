@@ -1,0 +1,27 @@
+{
+  "name": "learn-graphs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willypapa/learn-graphs.git"
+  },
+  "keywords": [],
+  "author": "willypaps",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willypapa/learn-graphs/issues"
+  },
+  "homepage": "https://github.com/willypapa/learn-graphs#readme",
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}
