@@ -14,7 +14,7 @@ export class Graph {
         public edges: Edge[] = [],
         public incidenceMap: IncidenceMap
     ) {
-        // TODO: check that incidenceFn maps every edge
+        this.checkIncidenceMap();
     }
 
     /**
@@ -118,13 +118,7 @@ export class Graph {
 
 
     hasParallelEdges(): boolean {
-
-        /*
-         * TODO: 
-         *  Find a more efficient way to check every 
-         *  pair of edges to see if they are parallel.
-         */
-
+        // TODO: Can we make this more efficient?
         const edgesToCheck = this.edges;
 
         for (const edge1 of this.edges) {
@@ -140,4 +134,11 @@ export class Graph {
         return false;
     }
 
+    private checkIncidenceMap(): void {
+        /**
+         * TODO:
+         *  Check that the incidenceMap maps every
+         *  edge in this Graph.
+         */
+    }
 }
