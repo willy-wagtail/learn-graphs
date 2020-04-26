@@ -117,7 +117,21 @@ export class Graph {
     }
 
     hasParallelEdges(): boolean {
-        return false; // todo
+        // TODO - find a more efficient way to do this.
+
+        const edgesToCheck = this.edges;
+
+        for (const edge1 of this.edges) {
+            edgesToCheck.shift();
+
+            for (const edge2 of edgesToCheck) {
+                if (edge1.parallel(edge2, this.incidenceMap)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 }
