@@ -59,7 +59,7 @@ export class Graph {
         second: Edge
     ): boolean {
         const [firstEdgeEnd1, firstEdgeEnd2] = this.incidenceMap(first);
-        const [secondEdgeEnd1, secondEdgeEnd2] = this.incidenceMap(first);
+        const [secondEdgeEnd1, secondEdgeEnd2] = this.incidenceMap(second);
 
         return firstEdgeEnd1.equalTo(secondEdgeEnd1)
             || firstEdgeEnd1.equalTo(secondEdgeEnd2)
@@ -85,11 +85,6 @@ export class Graph {
         return this.adjacentVertices(first, second);
     }
 
-    /**
-     * Returns a set neighbouring vertices.
-     * 
-     * @param vertex
-     */
     allNeighbours(check: Vertex): Set<Vertex> {
         const neighbours: Set<Vertex> = new Set();
 
@@ -100,6 +95,42 @@ export class Graph {
         }
 
         return neighbours;
+    }
+
+    /**
+     * Two edges are parallel if they have 
+     * the same end vertices.
+     * 
+     * @param edge1
+     * @param edge2 
+     */
+    parallel(
+        edge1: Edge,
+        edge2: Edge
+    ): boolean {
+        const [edge1End1, edge1End2] = this.incidenceMap(edge1);
+        const [edge2End1, edge2End2] = this.incidenceMap(edge2);
+
+        return (edge1End1.equalTo(edge2End1) && edge1End2.equalTo(edge2End2))
+            || (edge1End1.equalTo(edge2End2) && edge1End2.equalTo(edge2End1));
+
+    }
+
+    /**
+     * A graph is a null graph if it has 
+     * no vertices (and hence no edges).
+     */
+    isNull(): boolean {
+        return this.vertices.length === 0;
+    }
+
+    /**
+     * A graph is a simple graph if it has
+     * no loops or parallel edges.
+     */
+    isSimple(): boolean {
+        // TODO
+        return false ;
     }
 
 }
