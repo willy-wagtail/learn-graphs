@@ -48,26 +48,6 @@ export class Graph {
     }
 
     /**
-     * Two edges are adjacent if there 
-     * is a common vertex between them.
-     * 
-     * @param first
-     * @param second 
-     */
-    adjacentEdges(
-        first: Edge,
-        second: Edge
-    ): boolean {
-        const [firstEdgeEnd1, firstEdgeEnd2] = this.incidenceMap(first);
-        const [secondEdgeEnd1, secondEdgeEnd2] = this.incidenceMap(second);
-
-        return firstEdgeEnd1.equalTo(secondEdgeEnd1)
-            || firstEdgeEnd1.equalTo(secondEdgeEnd2)
-            || firstEdgeEnd2.equalTo(secondEdgeEnd1)
-            || firstEdgeEnd2.equalTo(secondEdgeEnd2);
-    }
-
-    /**
      * Two vertices are neighbours
      * if they are adjacent and distinct.
      * 
@@ -106,8 +86,8 @@ export class Graph {
     }
 
     /**
-     * A graph with only one vertex is called
-     * a trivial graph.
+     * A graph with only one vertex is 
+     * called a trivial graph.
      */
     trivial(): boolean {
         return this.vertices.length === 1;
@@ -115,6 +95,15 @@ export class Graph {
 
     nonTrivial(): boolean {
         return !this.trivial();
+    }
+
+    /**
+     * A graph is a simple graph if it has
+     * no loops or parallel edges.
+     */
+    isSimple(): boolean {
+        return !this.hasLoops()
+            && !this.hasParallelEdges();
     }
 
     hasLoops(): boolean {
@@ -129,15 +118,6 @@ export class Graph {
 
     hasParallelEdges(): boolean {
         return false; // todo
-    }
-
-    /**
-     * A graph is a simple graph if it has
-     * no loops or parallel edges.
-     */
-    isSimple(): boolean {
-        return !this.hasLoops()
-            && !this.hasParallelEdges();
     }
 
 }

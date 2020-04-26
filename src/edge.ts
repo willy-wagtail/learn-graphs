@@ -18,7 +18,7 @@ export abstract class Edge {
         incidenceMap: IncidenceMap
     ): boolean {
         const [end1, end2] = incidenceMap(this);
-        
+
         return (vertex1.equalTo(end1) && vertex2.equalTo(end2))
             || (vertex1.equalTo(end2) && vertex2.equalTo(end1));
     }
@@ -50,5 +50,25 @@ export abstract class Edge {
 
         return (edge1End1.equalTo(edge2End1) && edge1End2.equalTo(edge2End2))
             || (edge1End1.equalTo(edge2End2) && edge1End2.equalTo(edge2End1));
+    }
+
+    /**
+     * Two edges are adjacent if there 
+     * is a common vertex between them.
+     * 
+     * @param first
+     * @param second 
+     */
+    adjacent(
+        edge: Edge,
+        incidenceMap: IncidenceMap
+    ): boolean {
+        const [firstEdgeEnd1, firstEdgeEnd2] = incidenceMap(this);
+        const [secondEdgeEnd1, secondEdgeEnd2] = incidenceMap(edge);
+
+        return firstEdgeEnd1.equalTo(secondEdgeEnd1)
+            || firstEdgeEnd1.equalTo(secondEdgeEnd2)
+            || firstEdgeEnd2.equalTo(secondEdgeEnd1)
+            || firstEdgeEnd2.equalTo(secondEdgeEnd2);
     }
 }
