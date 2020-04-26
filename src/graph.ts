@@ -32,7 +32,7 @@ export class Graph {
             return false;
         }
 
-        for (let edge of this.edges) {
+        for (const edge of this.edges) {
             const [end1, end2] = this.incidenceMap(edge);
 
             const isConnectingEdge: boolean =
@@ -88,7 +88,7 @@ export class Graph {
     allNeighbours(check: Vertex): Set<Vertex> {
         const neighbours: Set<Vertex> = new Set();
 
-        for (let vertex of this.vertices) {
+        for (const vertex of this.vertices) {
             if (this.neighbours(check, vertex)) {
                 neighbours.add(vertex);
             }
@@ -98,30 +98,37 @@ export class Graph {
     }
 
     /**
-     * Two edges are parallel if they have 
-     * the same end vertices.
-     * 
-     * @param edge1
-     * @param edge2 
-     */
-    parallel(
-        edge1: Edge,
-        edge2: Edge
-    ): boolean {
-        const [edge1End1, edge1End2] = this.incidenceMap(edge1);
-        const [edge2End1, edge2End2] = this.incidenceMap(edge2);
-
-        return (edge1End1.equalTo(edge2End1) && edge1End2.equalTo(edge2End2))
-            || (edge1End1.equalTo(edge2End2) && edge1End2.equalTo(edge2End1));
-
-    }
-
-    /**
      * A graph is a null graph if it has 
      * no vertices (and hence no edges).
      */
-    isNull(): boolean {
+    null(): boolean {
         return this.vertices.length === 0;
+    }
+
+    /**
+     * A graph with only one vertex is called
+     * a trivial graph.
+     */
+    trivial(): boolean {
+        return this.vertices.length === 1;
+    }
+
+    nonTrivial(): boolean {
+        return !this.trivial();
+    }
+
+    hasLoops(): boolean {
+        for (const edge of this.edges) {
+            if (edge.loop(this.incidenceMap)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    hasParallelEdges(): boolean {
+        return false; // todo
     }
 
     /**
@@ -129,8 +136,8 @@ export class Graph {
      * no loops or parallel edges.
      */
     isSimple(): boolean {
-        // TODO
-        return false ;
+        return !this.hasLoops()
+            && !this.hasParallelEdges();
     }
 
 }
