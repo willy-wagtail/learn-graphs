@@ -7,7 +7,7 @@ import { IncidenceMap } from "./incidence-map";
  * and an incidence function which maps
  * each edge to it's end vertices.
  */
-export class Graph {
+export abstract class Graph {
 
     constructor(
         public readonly vertices: Vertex[] = [],
@@ -101,7 +101,7 @@ export class Graph {
      * A graph is a simple graph if it has
      * no loops or parallel edges.
      */
-    isSimple(): boolean {
+    simple(): boolean {
         return !this.hasLoops()
             && !this.hasParallelEdges();
     }
@@ -150,96 +150,6 @@ export class Graph {
      */
     empty(): boolean {
         return this.edges.length === 0;
-    }
-
-    /**
-     * A graph is bipartite if its vertices can 
-     * be partitioned into two such that every 
-     * edge has an end in each. The two sets are
-     * called a bipartition of the graph.
-     */
-    bipartite(): boolean {
-        // TODO
-        return false;
-    }
-
-    completeBipartite(): boolean {
-        return this.complete()
-            && this.bipartite();
-    }
-
-    /**
-     * A star graph is a complete bipartite graph
-     * where the size of one of the bipartitions
-     * is equal to 1.
-     */
-    star(): boolean {
-        /**
-         * TODO
-         *  Find bipartition
-         *  Check one of them has size = 1
-         */
-        return false;
-    }
-
-    /**
-     * A path is a simple graph whose vertices can
-     * be arranged in a linear sequence such that
-     * consecutive vertices are adjacent.
-     */
-    path(): boolean {
-        // TODO
-        return false;
-    }
-
-    /**
-     * The length of a path is its number of edges.
-     * A path of length k is called a k-path.
-     * 
-     * Returns null if graph is not a path.
-     */
-    pathLength(): number | null {
-        return this.path()
-            ? this.vertices.length
-            : null;
-    }
-
-    /**
-     * A cycle is a graph with 3 or more verrtices
-     * arranged in a cyclic sequence such that 
-     * consecutive vertices are adjacent.
-     */
-    cycle(): boolean {
-        // TODO
-        return false;
-    }
-
-    /**
-     * The length of a cycle is its number of edges.
-     * A cycle of length k is called a k-cycle.
-     * 
-     * Returns null if graph is not a cycle.
-     */
-    cycleLength(): number | null {
-        return this.cycle()
-            ? this.vertices.length
-            : null;
-    }
-
-    triangle(): boolean {
-        return this.cycleLength() === 3;
-    }
-
-    quadilateral(): boolean {
-        return this.cycleLength() === 4;
-    }
-
-    pentagon(): boolean {
-        return this.cycleLength() === 5;
-    }
-
-    hexagon(): boolean {
-        return this.cycleLength() === 6;
     }
 
     private checkIncidenceMap(): void {
